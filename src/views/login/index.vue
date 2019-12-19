@@ -70,7 +70,7 @@ export default {
     //  提交登录表单
     submitLogin () {
       //  el-form实例
-      this.$refs.myForm.validate(function (isOK) {
+      this.$refs.myForm.validate((isOK) => {
         if (isOK) {
           // 认为前端校验登录表单成功
           // console.log('前端校验成功,发送用户名和密码到后校验成功')
@@ -79,10 +79,15 @@ export default {
             method: 'post',
             data: this.loginForm
           }).then(result => {
-            window.localStorage.setLtem('user-token', result.data.data.token) // 前端缓存令牌
+            window.localStorage.setItem('user-token', result.data.data.token) // 前端缓存令牌
+            this.$router.push('/home')
             // 成功后才会进入到then
-          }).catch(error => {
-            console.log(error)
+          }).catch(() => {
+            // 这个是一个elementUI的方法
+            this.$message({
+              message: '您的手机号或者验证码不正确',
+              yupe: 'warning'
+            })
           })
         }
       })
