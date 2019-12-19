@@ -30,6 +30,7 @@
 </template>
 
 <script>
+
 export default {
 // 在data定义表单数据对象
   data () {
@@ -72,7 +73,17 @@ export default {
       this.$refs.myForm.validate(function (isOK) {
         if (isOK) {
           // 认为前端校验登录表单成功
-          console.log('前端校验成功,发送用户名和密码到后校验成功')
+          // console.log('前端校验成功,发送用户名和密码到后校验成功')
+          this.$axios({
+            url: '/authorizations', // 请求地址
+            method: 'post',
+            data: this.loginForm
+          }).then(result => {
+            window.localStorage.setLtem('user-token', result.data.data.token) // 前端缓存令牌
+            // 成功后才会进入到then
+          }).catch(error => {
+            console.log(error)
+          })
         }
       })
     }
