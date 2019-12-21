@@ -14,8 +14,9 @@
          <layout-header></layout-header>
          </el-header>
          <!-- 主要区域 -->
-         <el-main>
-           <!-- 主要区域 -->
+         <el-main style="padding:0">
+           <!-- 主要区域  桌面没有显示图片 因为没有加容器 <router-view></router-view> -->
+           <router-view></router-view>
          </el-main>
      </el-container>
   </el-container>
