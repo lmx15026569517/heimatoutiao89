@@ -83,10 +83,10 @@ export default {
             this.$router.push('/home')
             // 成功后才会进入到then
           }).catch(() => {
-            // 这个是一个elementUI的方法
+            // 这个是一个elementUI的方法,和VUE没有关系
             this.$message({
               message: '您的手机号或者验证码不正确',
-              yupe: 'warning'
+              type: 'warning'
             })
           })
         }
