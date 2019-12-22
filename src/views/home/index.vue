@@ -2,7 +2,7 @@
   <!-- 放置一个最外层的容器 -->
   <el-container>
     <!-- 先左右布局 -->
-   <el-aside style="background-color:#353b4e;height:100vh;width: 230px;">
+   <el-aside style="background-color:#353b4e;min-height:100vh;width: 230px;">
      <!-- 放置一个左侧组件 -->
     <layout-aside></layout-aside>
    </el-aside>
