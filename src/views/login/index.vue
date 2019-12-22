@@ -80,7 +80,7 @@ export default {
             data: this.loginForm
           }).then(result => {
             window.localStorage.setItem('user-token', result.data.token) // 前端缓存令牌
-            this.$router.push('/home')
+            this.$router.push('/home')//  跳转到主页
             // 成功后才会进入到then
           }).catch(() => {
             // 这个是一个elementUI的方法,和VUE没有关系
