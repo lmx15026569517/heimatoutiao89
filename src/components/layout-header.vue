@@ -22,7 +22,6 @@
             </el-dropdown-menu>
           </el-dropdown>
         </el-row>
-
     </el-col>
 
   </el-row>

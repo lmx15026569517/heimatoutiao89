@@ -23,14 +23,14 @@
 </template>
 
 <script>
-import layoutAside from '../../components/layout-aside' // 引入
-import layoutHeader from '../../components/layout-header'// 引入
-export default {
-  components: {
-    'layout-aside': layoutAside,
-    'layout-header': layoutHeader
-  }
-}
+// import layoutAside from '../../components/layout-aside' // 引入
+// import layoutHeader from '../../components/layout-header'// 引入
+// export default {
+//   components: {
+//     'layout-aside': layoutAside,
+//     'layout-header': layoutHeader
+//   }
+// }
 </script>
 
 <style>
