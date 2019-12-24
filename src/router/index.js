@@ -20,7 +20,10 @@ const routes = [
     }, {
       //  二级路由表
       path: 'comment', // 完整地址 相对地址  一级路由加/二级路由不需要加/
-      component: () => import('../views/comment')//  按需加载 由于 core-js先不按需加载
+      component: () => import('../views/comment')//  按需加载
+    }, {
+      path: 'material',
+      component: () => import('../views/material')//  按需加载
     }]
   }, {
     // 登录页面

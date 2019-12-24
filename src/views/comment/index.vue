@@ -23,8 +23,17 @@
             <el-button type='tsxt' size="snall" @click="openOrClose(obj.row)">{{ obj.row.comment_status}}</el-button>
           </template>
         </el-table-column>
-
       </el-table>
+      <!-- 分页组件 -->
+      <el-row type='flex' justify="center" align="middle" style="height:80px">
+
+        <el-pagination background layout="prev,pager,next"
+          :current-page="10"
+          :page-size="page.pageSize"
+          :total="page.total"
+          @current-change="changePage">
+        </el-pagination>
+      </el-row>
  </el-card>
 </template>
 
@@ -32,18 +41,34 @@
 export default {
   data () {
     return {
-      list: []
+      list: [],
+      page: {
+        // 专门放置分页数据
+        total: 0, //  数据总条数
+        pageSize: 10, // 默认每页10条
+        currentPage: 1
+      }
     }
   },
   methods: {
+    //  页码改变事件
+    changePage (newPage) {
+      //  修改当前页码
+      this.page.currentPage = newPage
+      this.getComment()
+    },
     // 请求评论列表
     getComment () {
       //  axios 默认是get类型
       //  query  参数 /路由参数 地质参数 grt参数 axio params
       //  body 参数给data
       //  身份信息 headers
-      this.$axios({ url: '/articles', params: { response_type: 'comment' } }).then(result => {
+      this.$axios({
+        url: '/articles',
+        params: { response_type: 'comment', page: this.page.currentPage, per_page: this.page.pageSize }
+      }).then(result => {
         this.list = result.data.results // 获取评论列表数据给本身
+        this.page.total = result.data.total_count // 获取文章总条数
       })
     },
     //  定义一个布尔值转化方法
@@ -72,17 +97,7 @@ export default {
             allow_comment: !row.comment_status //  上面没有取反这里取反
           }
         }).then(result => {
-          // //  打开或者关闭评论成功之后
-          // this.$message({
-          //   type: 'success',
-          //   message: '操作成功'
-          // })
           this.getComment()//  重新请求一次
-        }).catch(() => {
-          // this.$message({
-          //   type: 'error',
-          //   message: '操作失败'
-          // })
         })
       })
     }
