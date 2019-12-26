@@ -1,6 +1,6 @@
 import LayotAside from '../layout-aside'
 import LayoutHeader from '../layout-header'
-import BreadCrumb from '../common/bread-crumb'
+import BreadCrumb from '../common/bread-crumb.vue'
 
 export default {
   install (Vue) {
