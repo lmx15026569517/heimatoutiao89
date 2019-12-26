@@ -6,7 +6,7 @@
     </bread-crumb>
     <el-row typu='flex' justify="end">
         <el-upload :http-reques="uploadImg">
-          <el-button size="small" type="primary">点击上传<el-button>
+          <el-button size="small" type="primary">点击上传</el-button>
         </el-upload>
     </el-row>
     <!-- 素材 -->

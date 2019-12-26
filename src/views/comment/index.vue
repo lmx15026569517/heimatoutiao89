@@ -1,6 +1,6 @@
 <template>
 <!-- 卡片组件 -->
- <el-card>
+ <el-card v-loading="true">
    <!-- 面包屑给了卡片的具名插槽 -->
    <bread-crumb slot="header">
       <!-- 插槽内容 -->
@@ -41,6 +41,7 @@
 export default {
   data () {
     return {
+      loading: false, //  加载状态 默认关闭
       list: [],
       page: {
         // 专门放置分页数据
@@ -59,6 +60,7 @@ export default {
     },
     // 请求评论列表
     getComment () {
+      this.loaging = true //  打开
       //  axios 默认是get类型
       //  query  参数 /路由参数 地质参数 grt参数 axio params
       //  body 参数给data
@@ -69,6 +71,8 @@ export default {
       }).then(result => {
         this.list = result.data.results // 获取评论列表数据给本身
         this.page.total = result.data.total_count // 获取文章总条数
+        // setTimeout(() => { this.loading = false }, 300)
+        this.loading = false
       })
     },
     //  定义一个布尔值转化方法
@@ -103,7 +107,7 @@ export default {
     }
   },
   created () {
-    //  调用请求方法
+    //  调用请求数据方法
     this.getComment()
   }
 
