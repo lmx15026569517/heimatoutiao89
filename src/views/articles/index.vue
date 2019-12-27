@@ -57,16 +57,17 @@
         <span>共找到1000条符合条件的内容</span>
     </el-row>
         <!-- 循环的模板 -->
-    <el-row v-for="item in 100" :key="item" class='article-item' type='flex' justify="space-between">
+    <el-row v-for="item in list" :key="item.id.toString()" class='article-item' type='flex' justify="space-between">
 
     <!-- <el-row>左侧 -->
         <el-col :span="14">
             <el-row type="flex">
-                <img src="../../assets/img/404.png" alt="">
+                <img :src="item.cover.images.length ? item.cover.images[0]: defaultImg" alt="">
                 <div class="info">
-                  <span>年少有为不自卑</span>
-                  <el-tag class='tag'>标签一</el-tag>
-                  <span class='date'>2019-12-27 0:43:12:44</span>
+                  <span>{{item.title}}</span>
+                  <!-- 过滤器不但可以在差值表达里使用 还可以在v-bind里使用 -->
+                  <el-tag :type="item.status | filterType" class='tag'>{{item.status | filterStatus}}</el-tag>
+                  <span class='date'>{{item.pubdate}}</span>
                 </div>
             </el-row>
 
@@ -91,7 +92,44 @@ export default {
         channels_id: null, //  默认选择
         datRange: []
       },
-      channels: [] //  定义一个channels接收频道s
+      channels: [], //  定义一个channels接收频道
+      list: [], //  接收列表数据
+      defaultImg: require('../../assets/img/lmx1.jpg')
+    }
+  },
+  filters: {
+    //  处理显示状态
+    filterStatus (value) {
+      //  value 是过滤器前面表达式计算得到的值
+      //  文章状态 0-草稿,1-待审核,2-审核通过,3-审核失败, 4-已删除
+      switch (value) {
+        case 0:
+          return '草稿'
+        case 1:
+          return '待审核'
+        case 2:
+          return '以发表'
+        case 3:
+          return '审核失败'
+        default:
+          break
+      }
+    },
+    filterType (value) {
+      //  value 是过滤器前面表达式计算得到的值
+      //  文章状态 0-草稿,1-待审核,2-审核通过,3-审核失败, 4-已删除
+      switch (value) {
+        case 0:
+          return 'warnig'
+        case 1:
+          return 'info'
+        case 2:
+          return ''
+        case 3:
+          return 'danger'
+        default:
+          break
+      }
     }
   },
   methods: {
@@ -102,11 +140,20 @@ export default {
       }).then(result => {
         this.channels = result.data.channels //  获取频道数据
       })
+    },
+    //  获取文章列表数据
+    getArticles () {
+      this.$axios({
+        url: '/articles' // 请求地址
+      }).then(result => {
+        this.list = result.data.results //  接收频道列表数据
+      })
     }
 
   },
   created () {
     this.getChannels() // 调用频道 数据
+    this.getArticles() //  调用获取文章列表
   }
 }
 </script>
