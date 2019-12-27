@@ -89,8 +89,8 @@
            layout="prev, pager, next"
            :total="page.total"
            :current-page="page.currentPage"
-           :page-size="page.pageSize">
-           @current-change=""
+           :page-size="page.pageSize"
+           @current-change="changePage">
         </el-pagination>
     </el-row>
   </el-card>
@@ -194,16 +194,15 @@ export default {
       this.getArticles(params)
     },
     //  获取频道
-    getChannels (params) {
+    getChannels () {
       this.$axios({
-        url: '/channels', //  请求地址
-        params
+        url: '/channels' //  请求地址
       }).then(result => {
         this.channels = result.data.channels //  获取频道数据
       })
     },
     //  获取文章列表数据
-    getArticles () {
+    getArticles (params) {
       this.$axios({
         url: '/articles' // 请求地址
       }).then(result => {
