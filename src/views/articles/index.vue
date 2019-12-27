@@ -11,7 +11,7 @@
         <el-col :span="18">
           <!-- 0-草稿 1待审核  2审核通过 3审核失败 4已删除 ,不传为全部 -->
            <!-- 单选框组 -->
-            <el-radio-group v-model="formData.status">
+            <el-radio-group @change="changeCondition" v-model="formData.status">
               <!-- 全部5是默认的 ,在传参的时候判断一下是不是5 是5传null -->
             <el-radio :label="5">全部</el-radio>
             <el-radio :label="0">草稿</el-radio>
@@ -27,7 +27,7 @@
             <span>频道列表</span>
         </el-col>
         <el-col :sapn="18">
-            <el-select v-model="formData.channel_id">
+            <el-select @change="changeCondition" v-model="formData.channel_id">
               <!-- 循环生成多个 el-option
                 label 指的是el-option显示值
                 value指的是 el-option的存储值
@@ -44,7 +44,9 @@
         </el-col>
         <el-col :sapn="18">
             <el-date-picker
-                v-model="formData.datRange"
+            @change="changeCondition"
+            value-format="yyyy-MM-dd"
+                v-model="formData.dateRange"
                 type="daterange"
                 range-separator="-"
                 start-placeholder="开始日期"
@@ -90,7 +92,7 @@ export default {
       formData: {
         status: 5, //  状态
         channels_id: null, //  默认选择
-        datRange: []
+        dateRange: [] //  默认为一个空数组
       },
       channels: [], //  定义一个channels接收频道
       list: [], //  接收列表数据
@@ -133,10 +135,24 @@ export default {
     }
   },
   methods: {
+    //  改变条件
+    changeCondition () {
+      //  组装条件
+      //  最新状态
+      let params = {
+        status: this.formData.status === 5 ? null : this.formData.status, // 不传为全部  5代表全部
+        channel_id: this.formData.channel_id, //  频道
+        begin_puddate: this.formData.dateRange.length ? this.formData.dateRange[0] : null, //  起始时间
+        end_pubdate: this.formData.dateRange.length > 1 ? this.formData.dateRange[1] : null //  结束时间
+
+      }
+      this.getArticles(params) //  调用获取文章数据
+    },
     //  获取频道
-    getChannels () {
+    getChannels (params) {
       this.$axios({
-        url: '/channels'
+        url: '/channels', //  请求地址
+        params
       }).then(result => {
         this.channels = result.data.channels //  获取频道数据
       })
@@ -149,7 +165,6 @@ export default {
         this.list = result.data.results //  接收频道列表数据
       })
     }
-
   },
   created () {
     this.getChannels() // 调用频道 数据
