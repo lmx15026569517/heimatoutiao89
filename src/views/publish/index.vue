@@ -14,7 +14,7 @@
         <!-- 绑定字段  字段定义的是prop -->
         <el-form-item prop="type" label="封面" style="margin-top:140px;"></el-form-item>
         <!-- 单选组 v-model="封面类型"   -->
-          <el-radio-group v-model="formData.cover.type">
+          <el-radio-group @change="chengeType" v-model="formData.cover.type">
             <el-radio :label="1">单图</el-radio>
             <el-radio :label="3">三图</el-radio>
             <el-radio :label="0">无图</el-radio>
@@ -77,10 +77,22 @@ export default {
           }
         }
       }
-    },
-    //   // 监控嵌套对象中的值
-    'formData.cover.type': function () {
-      // this 指向组件实例
+    }
+    // 'formData.cover.type': function () {
+    //   // this 指向组件实例
+    //   if (this.formData.cover.type === 0 || this.formData.cover.type === -1) {
+    //     //  无图或者自动模式
+    //     this.formData.cover.images = []
+    //   } else if (this.formData.cover.type === 1) {
+    //     this.formData.cover.images = [''] //  单图模式
+    //   } else if (this.formData.cover.type === 3) {
+    //     this.formData.cover.images = ['', '', ''] //  单图模式
+    //   }
+    // }
+  },
+  methods: {
+    // 切换类型时触发 该方法只有点击的时候才会切换
+    chengeType () {
       if (this.formData.cover.type === 0 || this.formData.cover.type === -1) {
         //  无图或者自动模式
         this.formData.cover.images = []
@@ -89,14 +101,6 @@ export default {
       } else if (this.formData.cover.type === 3) {
         this.formData.cover.images = ['', '', ''] //  单图模式
       }
-    }
-  },
-  methods: {
-    // chengeType () {
-    //   alert(this.formData.cover.type)
-    // },
-    changeRadio () {
-      alert(this.formData.cover.type)
     },
     //  获取频道
     getChannels () {
