@@ -20,6 +20,8 @@
             <el-radio :label="0">无图</el-radio>
             <el-radio :label="-1">自动</el-radio>
           </el-radio-group>
+          <!-- 放置一个封面组件 父组件传子组件 -->
+          <cover-image :list="formData.cover.images"></cover-image>
         <el-form-item prop="channel_id" label="频道">
           <el-select v-model="formData.channel_id">
             <el-option v-for="item in channels" :key="item.id" :value="item.value" :label="item.name">
