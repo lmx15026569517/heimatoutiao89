@@ -57,7 +57,23 @@ export default {
         }],
         content: [{ required: true, message: '文章内容不能为空' }],
         channel_id: [{ required: true, message: '频道分类不能为空' }]
-
+      }
+    }
+  },
+  watch: {
+    $route: function (to, from) {
+      //  this 指向组件实例
+      if (Object.keys(to.params).length) {
+        //  有参数 修改
+      } else {
+        this.formData = {
+          title: '', //  文章 标题
+          content: '', // 文章内容
+          cover: {
+            type: 0, //  封面类型 -1:自动  0无图. 1-1张  3-3张
+            images: []//  存储的图片地址
+          }
+        }
       }
     }
   },
@@ -91,6 +107,7 @@ export default {
     }
   }
 }
+
 </script>
 
 <style>

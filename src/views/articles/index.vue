@@ -77,7 +77,7 @@
         <!-- 右侧 -->
         <el-col :span="6">
               <el-row class='right' type='flex' justify="end">
-                <span><i class="el-icon-edit"></i>修改</span>
+                <span @click="toModify"><i class="el-icon-edit"></i>修改</span>
                 <span @click="delArticle(item.id)"><i class="el-icon-delete"></i>删除</span>
               </el-row>
         </el-col>
@@ -151,6 +151,10 @@ export default {
     }
   },
   methods: {
+    //  修改页面
+    toModify (id) {
+      this.$router.push(`home/publish/${id.tuString()}`) //  发布到页面
+    },
     //  删除文章
     delArticle (id) {
       //  所有已发布的文章是不可以闪出去的  只有草稿才可以删除

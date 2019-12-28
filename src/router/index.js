@@ -28,7 +28,10 @@ const routes = [
       path: 'articles',
       component: () => import('../views/articles') //  按需加载
     }, {
-      path: 'publish',
+      path: 'publish/:articleId', // 定义动态路由参数 此规则值匹配修改文章
+      component: () => import('../views/publish') // 按需加载
+    }, {
+      path: 'publish', // 此规则是匹配文章
       component: () => import('../views/publish') // 按需加载
     }]
   }, {
