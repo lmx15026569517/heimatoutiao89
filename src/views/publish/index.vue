@@ -4,8 +4,8 @@
         <template slot="title">发表文章</template>
     </bread-crumd>
     <!-- 表单 label-width-->
-    <el-form :model="formData" :rules="publishRules" style="margin-left:50px">
-        <el-form-item ref="publishForm" prop="title" label="标题">
+    <el-form ref="publishForm" :model="formData" :rules="publishRules" style="margin-left:50px">
+        <el-form-item  prop="title" label="标题">
           <el-input v-model="formData.title" style="width:60%"></el-input>
           </el-form-item>
         <el-form-item prop="content" label="内容">
@@ -24,8 +24,7 @@
           <cover-image @clickOneImg="receiveImg" :list="formData.cover.images"></cover-image>
         <el-form-item prop="channel_id" label="频道">
           <el-select v-model="formData.channel_id">
-            <el-option v-for="item in channels" :key="item.id" :value="item.value" :label="item.name">
-
+            <el-option v-for="item in channels" :key="item.id" :value="item.id" :label="item.name">
             </el-option>
           </el-select>
         </el-form-item>
@@ -37,11 +36,11 @@
     </el-form>
   </el-card>
 </template>
-
 <script>
 export default {
   data () {
     return {
+      value: '',
       channels: [], //  定义一个channels接收频道
       formData: {
         title: '', //  文章 标题
@@ -136,7 +135,7 @@ export default {
             params: { draft }, // query参数
             data: this.formData
           }).then(result => {
-            this.$router.pusg('/home/articles') //  回到内容列表
+            this.$router.push('/home/articles') //  回到内容列表
           })
           // if (articleId) {
           //   // 修改文章
@@ -147,7 +146,7 @@ export default {
           //     data: this.formData
           //   }).then(function () {
           //   //  新增成功 应该去内容列表
-          //     this.$router.pusg('/home/articles') //  回到内容列表
+          //     this.$router.push('/home/articles') //  回到内容列表
           //   })
           // } else {
           //   // 可以进行发布接口

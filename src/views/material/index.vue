@@ -5,7 +5,7 @@
       <template slot="title">素材管理</template>
     </bread-crumb>
     <el-row typu='flex' justify="end">
-        <el-upload :http-reques="uploadImg">
+        <el-upload :http-reques="uploadImg" :show-file-list="false" >
           <el-button size="small" type="primary">点击上传</el-button>
         </el-upload>
     </el-row>

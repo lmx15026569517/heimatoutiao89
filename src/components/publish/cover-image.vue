@@ -32,7 +32,7 @@ export default {
       this.closeDialog() //  直接关闭弹窗
     },
     openDialog (index) {
-      this.selectIndex = index //  记住点击的小标
+      this.selectIndex = index //  记住点击的下标
       this.dialogVisible = true // 打开弹层
     },
     // 关闭

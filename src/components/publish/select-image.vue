@@ -19,7 +19,14 @@
                 ></el-pagination>
            </el-row>
         </el-tab-pane>
-         <el-tab-pane label="上传图片" name="puload">上传图片</el-tab-pane>
+
+        <el-tab-pane label="上传图片" name="upload">
+           <!-- 放置上传组件 el-upload  bug 因为没有加属性action -->
+           <el-upload  class='upload' :http-request="uploadImg" action="" :show-file-list="false">
+             <i class="el-icon-plus"></i>
+           </el-upload>
+        </el-tab-pane>
+
     </el-tabs>
 </template>
 
@@ -38,6 +45,19 @@ export default {
     }
   },
   methods: {
+    //  上传
+    uploadImg (params) {
+      let data = new FormData() //  实例化对象
+      data.append('image', params.file) //  添加文件参数
+      this.$axios({
+        url: '/user/images',
+        method: 'post',
+        data
+      }).then(result => {
+        // result.data.url  上传把图片传上去
+        this.$emit('selectOneImg', result.data.url) // 自定义事件名在这里不需要强制小写
+      })
+    },
     //   点击图片触发
     clickLImg (url) {
       // alert(url)
@@ -82,6 +102,19 @@ export default {
       img {
         width: 100%;
       }
+    }
+  }
+  .upload {
+    display: flex;
+    justify-content: center;
+    i {
+      font-size: 50px;
+      display: block;
+      margin: 20px;
+      padding: 60px;
+      border: 1px dashed #ccc;
+      border-radius: 4px;
+
     }
   }
 
