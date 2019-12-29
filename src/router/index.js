@@ -33,6 +33,9 @@ const routes = [
     }, {
       path: 'publish', // 此规则是匹配文章
       component: () => import('../views/publish') // 按需加载
+    }, {
+      path: 'account', //  账户信息
+      component: () => import('../views/account') // 按需加载
     }]
   }, {
     // 登录页面

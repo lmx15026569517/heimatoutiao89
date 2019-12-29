@@ -26,11 +26,10 @@
         <el-menu-item index="/home/fansinfo">粉丝列表</el-menu-item>
         <el-menu-item index="/home/fanslife">粉丝概况</el-menu-item>
         <el-menu-item index="/home/fanslit">粉丝列表</el-menu-item>
-
     </el-submenu>
-      <el-menu-item>
+    <el-menu-item index="/home/account">
         账户信息
-      </el-menu-item>
+    </el-menu-item>
   </el-menu>
 </div>
 </template>
