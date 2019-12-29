@@ -21,7 +21,7 @@
             <el-radio :label="-1">自动</el-radio>
           </el-radio-group>
           <!-- 放置一个封面组件 父组件传子组件 -->
-          <cover-image :list="formData.cover.images"></cover-image>
+          <cover-image @clickOneImg="receiveImg" :list="formData.cover.images"></cover-image>
         <el-form-item prop="channel_id" label="频道">
           <el-select v-model="formData.channel_id">
             <el-option v-for="item in channels" :key="item.id" :value="item.value" :label="item.name">
@@ -91,6 +91,22 @@ export default {
     // }
   },
   methods: {
+    receiveImg (img, index) {
+      //  接收到数据之后 修改images数组 但是images是一个数组['','','']
+      // 有地址 有索引 能不能改images
+      // this.formData.cover.images[index] = img //  直接修改数据
+      // vue 响应式原理 响应式数据  数据发生变化(要能被vue监控到)  数据变化=视图变化
+      // 数组变成新数组 就会触发响应式视图更新
+      // this.formData.cover.images = this.formData.cover.images.map(function (item, i) {
+      //   if (i === index) {
+      //     return img
+      //   }
+      //   return item
+      // })
+      //  上面的简写
+      // alert(img, index)
+      this.formData.cover.images = this.formData.cover.images.map((item, i) => i === index ? img : item)
+    },
     // 切换类型时触发 该方法只有点击的时候才会切换
     chengeType () {
       if (this.formData.cover.type === 0 || this.formData.cover.type === -1) {

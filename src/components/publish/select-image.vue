@@ -4,8 +4,10 @@
            <div class='select-img-list'>
              <!-- 循环生成选择列表 -->
              <el-card class='img-card' v-for="item in list" :key="item.id">
-                <img :src="item.url" alt="">
+               <!-- 点击图片封装调用方法  调用方法 将图片地址传出去 -->
+                <img @click="clickLImg(item.url)" :src="item.url" alt="">
              </el-card>
+
            </div>
            <!-- 放置一个分页组件 -->
            <el-row type="flex" justify="center">
@@ -36,6 +38,12 @@ export default {
     }
   },
   methods: {
+    //   点击图片触发
+    clickLImg (url) {
+      // alert(url)
+      //  需要将url传出去  $emit 自定义事件 携带参数
+      this.$emit('selectOneImg', url) //  自定义事件这里不需要强制小写
+    },
     changePage (newPage) {
       this.page.currentPage = newPage
       this.getAllImg()
@@ -50,6 +58,7 @@ export default {
           per_page: this.page.pageSize
         }
       }).then(result => {
+        console.log(result)
         this.list = result.data.results
         this.page.total = result.data.total_count // 赋值总数
       })
